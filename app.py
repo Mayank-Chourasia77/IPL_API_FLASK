@@ -33,4 +33,7 @@ def batter_runs():
     result = ipl.player_runs(player)
     return jsonify(result)
 
-app.run(debug=True)
+import os
+
+port = int(os.environ.get("PORT", 5000))  # Default to 5000 if PORT is not set
+app.run(host="0.0.0.0", port=port, debug=True)
