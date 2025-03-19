@@ -8,7 +8,19 @@ import ipl
 app = Flask(__name__)
 @app.route('/')
 def home():
-    return 'hello'
+    return jsonify({
+        "message": "Welcome to the IPL Stats API!",
+        "endpoints": {
+            "Get Teams": "/api/teams",
+            "Compare Teams": "/api/teamvteam?team1=CSK&team2=MI",
+            "Finals Won": "/api/number-of-final-won?team=CSK",
+            "Player Runs": "/api/batsman-season-runs?player=Virat Kohli"
+        },
+        "status": "Running",
+        "author": "Your Name",
+        "documentation": "https://your-docs-link.com"  # Optional, if you create docs
+    })
+
 @app.route('/api/teams')
 def teams():
     team = ipl.teamsAPI()
