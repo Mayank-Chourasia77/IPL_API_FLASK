@@ -47,4 +47,10 @@ def batter_runs():
     result = ipl.player_runs(player)
     return jsonify(result)
 
-app.run()
+import os
+if __name__ == "__main__":
+    # Get the PORT from Render (defaults to 5000 if not found)
+    port = int(os.environ.get("PORT", 5000))
+
+    # Bind to 0.0.0.0 so Render can access it
+    app.run(host="0.0.0.0", port=port)
