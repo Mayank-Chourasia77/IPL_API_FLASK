@@ -1,14 +1,15 @@
 #what is api? -> a function that is online anyone can hit on url give input and can take output
 #it is like pipeline between two software help eachother to communicate
-from math import degrees
 
+import json
 from flask import Flask,jsonify,request
 import ipl
 
 app = Flask(__name__)
 @app.route('/')
+@app.route('/')
 def home():
-    return jsonify({
+    response_data = {
         "message": "Welcome to the IPL Stats API!",
         "endpoints": {
             "Get Teams": "/api/teams",
@@ -17,9 +18,10 @@ def home():
             "Player Runs": "/api/batsman-season-runs?player=Virat Kohli"
         },
         "status": "Running",
-        "author": "Your Name",
-        "documentation": "https://your-docs-link.com"  # Optional, if you create docs
-    })
+    }
+    # Use json.dumps with indent parameter to format the JSON response
+    formatted_response = json.dumps(response_data, indent=4)
+    return formatted_response, 200, {'Content-Type': 'application/json'}
 
 @app.route('/api/teams')
 def teams():
@@ -45,7 +47,4 @@ def batter_runs():
     result = ipl.player_runs(player)
     return jsonify(result)
 
-import os
-
-port = int(os.environ.get("PORT", 5000))  # Default to 5000 if PORT is not set
-app.run(host="0.0.0.0", port=port, debug=False)
+app.run()
